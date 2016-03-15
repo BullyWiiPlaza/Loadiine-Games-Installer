@@ -2,7 +2,6 @@ package com.bullywiihacks.loadiine.sdcard.installer;
 
 import org.xml.sax.SAXException;
 
-import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 

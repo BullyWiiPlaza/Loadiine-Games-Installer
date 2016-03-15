@@ -213,7 +213,7 @@ public class WiiUGamesInstallerGUI extends JFrame
 
 	private void setFrameProperties() throws IOException
 	{
-		setTitle("Loadiine Games Installer v1.8 by Bully@WiiPlaza");
+		setTitle("Loadiine Games Installer v1.81 by Bully@WiiPlaza");
 		setContentPane(rootPanel);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(450, 350);
@@ -244,6 +244,9 @@ public class WiiUGamesInstallerGUI extends JFrame
 				String gameName = sourceGameManager.getGameName();
 				gameName = FileSystemUtilities.sanitize(gameName);
 				gameNameField.setText(gameName);
+			} catch (IllegalArgumentException ignored)
+			{
+
 			} catch (Exception exception)
 			{
 				exception.printStackTrace();

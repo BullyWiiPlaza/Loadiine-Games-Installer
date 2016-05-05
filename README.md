@@ -9,7 +9,7 @@ You double-click the `Loadiine-Games-Installer.jar` file or alternative invoke t
 * Robust file copying
 * Intelligent file copying
 * Progress bar
-* Windows only: Task bar progress bar
+* Windows 7, 8 and 10 only: Task bar progress
 * Platform independent
 * Game name and game id auto detection
 

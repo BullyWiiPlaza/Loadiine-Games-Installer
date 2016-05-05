@@ -105,7 +105,7 @@ public class FileSynchronization
 		int sourceFilesCount = sourceFiles.size();
 		Component component = WiiUGamesInstallerGUI.getInstance();
 
-		if (SystemUtils.IS_OS_WINDOWS)
+		if (isSupportedPlatform())
 		{
 			long hwndVal = JAWTUtils.getNativePeerHandle(component);
 			windowsWindowHandle = Pointer.pointerToAddress(hwndVal);
@@ -153,7 +153,7 @@ public class FileSynchronization
 
 			progressBar.setValue(sourceFilesIndex + 1);
 
-			if (SystemUtils.IS_OS_WINDOWS)
+			if (isSupportedPlatform())
 			{
 				slider.setValue(sourceFilesIndex + 1);
 				taskBarList.SetProgressValue((Pointer) windowsWindowHandle, slider.getValue(), slider.getMaximum());
@@ -162,13 +162,18 @@ public class FileSynchronization
 
 		progressBar.setValue(sourceFilesCount);
 
-		if (SystemUtils.IS_OS_WINDOWS)
+		if (isSupportedPlatform())
 		{
 			slider.setValue(sourceFilesCount);
 
 			taskBarProgressState = ITaskbarList3.TbpFlag.TBPF_NOPROGRESS;
 			taskBarList.SetProgressState((Pointer) windowsWindowHandle, taskBarProgressState);
 		}
+	}
+
+	private static boolean isSupportedPlatform()
+	{
+		return SystemUtils.IS_OS_WINDOWS_7 || SystemUtils.IS_OS_WINDOWS_8 || System.getProperty("os.name").equals("Windows 10");
 	}
 
 	/**
@@ -180,7 +185,7 @@ public class FileSynchronization
 	{
 		if (!new File(folderPath).exists())
 		{
-			Files.createDirectory(Paths.get(folderPath));
+			Files.createDirectories(Paths.get(folderPath));
 		}
 	}
 

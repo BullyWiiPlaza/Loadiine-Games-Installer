@@ -1,5 +1,4 @@
-package com.bullywiihacks.loadiine.sdcard.installer.gui;
-
+import com.bullywiihacks.loadiine.sdcard.installer.gui.WiiUGamesInstallerGUI;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;

@@ -1,8 +1,9 @@
 package com.bullywiihacks.loadiine.sdcard.installer.gui;
 
-import com.bullywiihacks.loadiine.sdcard.installer.SDCardManager;
 import com.bullywiihacks.loadiine.sdcard.installer.SourceGameManager;
 import com.bullywiihacks.loadiine.sdcard.installer.WiiUGamesInstaller;
+import com.bullywiihacks.loadiine.sdcard.installer.volume.VolumeInformation;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class WiiUGamesInstallerGUI extends JFrame
 	private JProgressBar transferProgressBar;
 	private SimpleProperties persistentSettings;
 	private static WiiUGamesInstallerGUI wiiUGamesInstallerGUI;
+	private boolean isSDCardFormattedCorrectly;
 
 	private WiiUGamesInstallerGUI() throws IOException
 	{
@@ -35,11 +37,88 @@ public class WiiUGamesInstallerGUI extends JFrame
 		customizeTransferBar();
 		restoreBackedUpSettings();
 		addDataBackupShutdownHook();
+		addSDCardDocumentListener();
 		addSDCardBrowseButtonListener();
 		addTransferButtonListener();
 		addGameFolderBrowseButtonListener();
 		addGameNameFieldDocumentListener();
-		handleTransferButtonAvailability(true);
+		handleTransferButtonAvailability(false);
+		checkSDCardFormatting(true);
+	}
+
+	private void addSDCardDocumentListener()
+	{
+		sdCardRootPathField.getDocument().addDocumentListener(new DocumentListener()
+		{
+			@Override
+			public void insertUpdate(DocumentEvent documentEvent)
+			{
+				checkSDCardFormatting(false);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent documentEvent)
+			{
+				checkSDCardFormatting(false);
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent documentEvent)
+			{
+				checkSDCardFormatting(false);
+			}
+		});
+	}
+
+	private void checkSDCardFormatting(boolean initialCheck)
+	{
+		String sdCardRootPath = sdCardRootPathField.getText();
+
+		if (SystemUtils.IS_OS_WINDOWS)
+		{
+			if (sdCardRootPath.length() >= 1)
+			{
+				String volumeType = VolumeInformation.getVolumeType(sdCardRootPath.charAt(0));
+				String desiredVolumeType = "FAT32";
+
+				if (!volumeType.equals(desiredVolumeType))
+				{
+					isSDCardFormattedCorrectly = false;
+					sdCardRootPathField.setBackground(Color.RED);
+
+					if (!initialCheck)
+					{
+						Object[] options = {"Yes",
+								"No"};
+						int selectedAnswer = JOptionPane.showOptionDialog(this,
+								"Your SD card is formatted as " + volumeType + " but it should be in " + desiredVolumeType + ".\nWould you like to to start the FAT32 formatting utility?",
+								"Bad SD card volume type",
+								JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE,
+								null,
+								options,
+								null);
+
+						if (selectedAnswer == JOptionPane.YES_OPTION)
+						{
+							try
+							{
+								Desktop.getDesktop().open(new File("Fat32 Format.exe"));
+							} catch (IOException exception)
+							{
+								exception.printStackTrace();
+							}
+						}
+					}
+				} else
+				{
+					isSDCardFormattedCorrectly = true;
+				}
+			}
+		} else
+		{
+			isSDCardFormattedCorrectly = true;
+		}
 	}
 
 	public JProgressBar getProgressBar()
@@ -184,7 +263,7 @@ public class WiiUGamesInstallerGUI extends JFrame
 
 	private void addSDCardBrowseButtonListener()
 	{
-		sdCardBrowseButton.addActionListener(e ->
+		sdCardBrowseButton.addActionListener(actionEvent ->
 		{
 			JFileChooser sdCardRootChooser = new JFileChooser();
 			sdCardRootChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -208,17 +287,17 @@ public class WiiUGamesInstallerGUI extends JFrame
 			persistentSettings.put("SD_CARD_ROOT", sdCardRootPathField.getText());
 			persistentSettings.put("GAME_FOLDER", gameFolderRootPathField.getText());
 			persistentSettings.put("GAME_NAME", gameNameField.getText());
+			persistentSettings.writeToFile();
 		}));
 	}
 
 	private void setFrameProperties() throws IOException
 	{
-		setTitle("Loadiine Games Installer v1.9 by Bully@WiiPlaza");
+		setTitle("Loadiine Games Installer v2.0 by Bully@WiiPlaza");
 		setContentPane(rootPanel);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(450, 350);
 		setLocationRelativeTo(null);
-
 		setIconImage("Icon.png", WiiUGamesInstallerGUI.class);
 	}
 
@@ -242,8 +321,8 @@ public class WiiUGamesInstallerGUI extends JFrame
 			{
 				SourceGameManager sourceGameManager = new SourceGameManager(extractedGameRootPath);
 				String gameName = sourceGameManager.getGameName();
-				gameName = FileSystemUtilities.sanitize(gameName);
-				gameNameField.setText(gameName);
+				String sanitizedGameName = FileSystemUtilities.sanitize(gameName);
+				gameNameField.setText(sanitizedGameName);
 			} catch (IllegalArgumentException ignored)
 			{
 
@@ -270,16 +349,15 @@ public class WiiUGamesInstallerGUI extends JFrame
 			gameFolderRootPathField.setBackground(Color.GREEN);
 		}
 
-		if (!new File(sdCardRootPath).exists())
+		boolean sdCardPathValid = new File(sdCardRootPath).exists();
+
+		if (sdCardPathValid && isSDCardFormattedCorrectly)
+		{
+			sdCardRootPathField.setBackground(Color.GREEN);
+		} else
 		{
 			transferButtonEnabled = false;
 			sdCardRootPathField.setBackground(Color.RED);
-		}/* else if (!SDCardManager.isRoot(sdCardRootPath))
-		{
-			transferButtonEnabled = false;
-		}*/ else
-		{
-			sdCardRootPathField.setBackground(Color.GREEN);
 		}
 
 		if (gameNameField.getText().equals(""))

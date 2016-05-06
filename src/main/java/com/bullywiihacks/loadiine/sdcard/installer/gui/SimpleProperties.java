@@ -1,17 +1,19 @@
 package com.bullywiihacks.loadiine.sdcard.installer.gui;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class SimpleProperties
 {
 	private Properties properties;
 	private OutputStream propertiesWriter;
+	private String propertiesFileName;
 
 	public SimpleProperties()
 	{
-		String propertiesFileName = "config.properties";
-
+		propertiesFileName = "config.properties";
 		properties = new Properties();
 
 		try
@@ -32,7 +34,10 @@ public class SimpleProperties
 	public void put(String key, String value)
 	{
 		properties.setProperty(key, value);
+	}
 
+	public void writeToFile()
+	{
 		try
 		{
 			properties.store(propertiesWriter, null);

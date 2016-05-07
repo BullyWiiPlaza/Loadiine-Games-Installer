@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90b7c9a6-8b9f-4886-ba02-56bf1ee1f382" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Loadiine-Games-Installer.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Loadiine_SD_Installer_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Loadiine_SD_Installer_jar.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Loadiine-SD-Installer.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
     </list>
     <ignored path="Loadiine Games Installer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,8 +30,8 @@
       <file leaf-file-name="WiiUGamesInstallerClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/WiiUGamesInstallerClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="308">
+              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -955,7 +952,7 @@
       <workItem from="1462439478176" duration="1357000" />
       <workItem from="1462440960860" duration="1063000" />
       <workItem from="1462528258277" duration="6896000" />
-      <workItem from="1462631876814" duration="140000" />
+      <workItem from="1462631876814" duration="615000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1457711806842</created>
@@ -1013,11 +1010,18 @@
       <option name="project" value="LOCAL" />
       <updated>1462539958408</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix JAR file">
+      <created>1462632029450</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1462632029450</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12366000" />
+    <option name="totallyTimeSpent" value="12841000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -1066,18 +1070,11 @@
     <MESSAGE value="Fix progress bar error for Windows XP and SD card folder creation" />
     <MESSAGE value="Setup git ignore file" />
     <MESSAGE value="Add SD Card volume detection and formatting utility" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add SD Card volume detection and formatting utility" />
+    <MESSAGE value="Fix JAR file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix JAR file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/WiiUGamesInstallerClient.java</url>
-          <line>16</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
@@ -1468,8 +1465,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/WiiUGamesInstallerClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="308">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding />
         </state>
       </provider>

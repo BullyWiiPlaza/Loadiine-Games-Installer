@@ -1,2 +1,5 @@
+# No application settings
 config.properties
-target/
+
+# No compiled classes
+/target

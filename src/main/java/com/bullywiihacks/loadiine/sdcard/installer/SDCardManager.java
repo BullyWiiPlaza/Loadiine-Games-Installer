@@ -13,15 +13,15 @@ public class SDCardManager
 
 	public SDCardManager(String rootDirectory, String gameFolder)
 	{
-		if (!isRoot(rootDirectory))
+		/*if (!isRoot(rootDirectory))
 		{
 			throw new IllegalArgumentException("Not a root directory");
-		}
+		}*/
 
 		this.gameFolder = rootDirectory + "\\wiiu\\games\\" + gameFolder;
 	}
 
-	public static boolean isRoot(String directory)
+	/*public static boolean isRoot(String directory)
 	{
 		if (SystemUtils.IS_OS_WINDOWS)
 		{
@@ -32,7 +32,7 @@ public class SDCardManager
 
 		// We cannot tell
 		return true;
-	}
+	}*/
 
 	public void synchronizeDataFolder(String sourceDataFolder) throws IOException, InterruptedException, ClassNotFoundException
 	{

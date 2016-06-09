@@ -9,11 +9,10 @@ public class SimpleProperties
 {
 	private Properties properties;
 	private OutputStream propertiesWriter;
-	private String propertiesFileName;
 
 	public SimpleProperties()
 	{
-		propertiesFileName = "config.properties";
+		String propertiesFileName = "config.properties";
 		properties = new Properties();
 
 		try

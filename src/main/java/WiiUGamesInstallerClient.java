@@ -7,14 +7,20 @@ import java.io.IOException;
 
 public class WiiUGamesInstallerClient
 {
-	private static void useSystemLookAndFeel() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
+	public static void main(String[] arguments) throws Exception
 	{
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	}
 
-	public static void main(String[] arguments) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, IOException, SAXException, ParserConfigurationException
-	{
-		useSystemLookAndFeel();
-		WiiUGamesInstallerGUI.getInstance().setVisible(true);
+		SwingUtilities.invokeLater(() ->
+		{
+			try
+			{
+				WiiUGamesInstallerGUI gamesInstallerGUI = WiiUGamesInstallerGUI.getInstance();
+				gamesInstallerGUI.setVisible(true);
+			} catch (IOException exception)
+			{
+				exception.printStackTrace();
+			}
+		});
 	}
 }

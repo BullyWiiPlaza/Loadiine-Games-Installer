@@ -3,3 +3,6 @@ config.properties
 
 # No compiled classes
 /target
+
+/.idea
+/*.iml

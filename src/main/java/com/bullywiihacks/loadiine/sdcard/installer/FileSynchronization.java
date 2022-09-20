@@ -107,8 +107,8 @@ public class FileSynchronization
 
 		if (isSupportedPlatform())
 		{
-			long hwndVal = JAWTUtils.getNativePeerHandle(component);
-			windowsWindowHandle = Pointer.pointerToAddress(hwndVal);
+			long nativePeerHandle = JAWTUtils.getNativePeerHandle(component);
+			windowsWindowHandle = Pointer.pointerToAddress(nativePeerHandle);
 			slider = new JSlider(0, sourceFilesCount, 0);
 			taskBarList = COMRuntime.newInstance(ITaskbarList3.class);
 			ITaskbarList3.TbpFlag taskBarProgressState = ITaskbarList3.TbpFlag.TBPF_NORMAL;
@@ -173,7 +173,9 @@ public class FileSynchronization
 
 	private static boolean isSupportedPlatform()
 	{
-		return SystemUtils.IS_OS_WINDOWS_7 || SystemUtils.IS_OS_WINDOWS_8 || System.getProperty("os.name").equals("Windows 10");
+		return SystemUtils.IS_OS_WINDOWS_7
+				|| SystemUtils.IS_OS_WINDOWS_8
+				|| System.getProperty("os.name").equals("Windows 10");
 	}
 
 	/**
